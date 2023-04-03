@@ -1,0 +1,228 @@
+---
+title: "Hüpoteeside testimine & t-test"
+subtitle: "Kvantitatiivsed meetodid"
+author: "Indrek Soidla"
+date: "28|9|2022"
+output: 
+  ioslides_presentation:
+    incremental: true
+    widescreen: true
+    smaller: true
+    transition: faster
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Võtame ühe näite
+:::: {style="display: flex;"}
+:::{}
+- Kas keskmine eluga rahulolu erineb Eestis regiooniti? 
+- Andmed valimi kohta, tahtsime järeldusi teha populatsiooni
+  kohta (rahvastiku tasandil)
+- Arvutasime keskmistele usaldusvahemikud
+- ![](pics/ndl_06_tabl_01.jpg){width=50%}
+- ![](pics/ndl_06_joon_01.jpg){width=50%}
+- Usaldusnivool 95% saime öelda, et
+:::
+:::{}
+- eluga rahulolu alusel eristuvad kolm regioonide rühma
+- Põhja- ja Lääne-Eestis oli eluga rahulolu keskmine üle 7 või 7
+ piirimail
+- Kesk- ja Lõuna-Eestis jäi eluga rahulolu keskmine alla 7 palli
+- Kirde-Eestis oli eluga rahulolu teistest regioonidest madalam ja
+ keskmine jäi alla 6,2 palli
+- Kas keskmine eluga rahulolu Põhja-Eestis ja Lõuna-Eestis erineb?
+- Usaldusnivool 95% usaldusvahemikud kattuvad, kuigi vähesel määral
+- Antud usaldusvahemike võrdlemisel seda väita ei saa
+- Kui usaldusvahemikud mingil määral kattuvad, siis keskmiste
+  erinevuse osas saaks täpsema järelduse statistilise testi põhjal, mis
+  testib keskmiste erinevust
+- Teeme läbi hüpoteeside testimise t-testi põhjal
+:::
+::::
+
+## Hüpoteeside testimine
+
+- Statistiline hüpotees
+   - oletus üldkogumi (nt selle jaotuse või parameetri) kohta,
+   - mida testitakse valimiandmete alusel
+- Kontrollime / testime hüpoteesi, et Põhja- ja Lõuna-Eestis keskmine eluga rahulolu
+  erineb
+- Milles on hüpoteeside testimise iva?
+  - Meil on olemas ainult valimiandmed, nende põhjal näeme, et Põhja- ja Lõuna-Eestis on eluga rahulolu keskmiselt mõnevõrra erinev (7,04 vs 6,79)
+  - Kas me saame öelda, et keskmiste erinevus esineb ka populatsioonis?
+  - Või on populatsioonis need keskmised tegelikult võrdsed?
+  - Me ei tea seda, sest valim ei pruugi olla täiesti täpne koopia populatsioonist
+  - Eeldusel, et meie valim on tõenäosuslik (st juhuvalim), saame hinnata, kas võib väita keskmiste erinevust ka populatsioonis
+- Selleks peame esmalt sõnastama alternatiivhüpoteesi ja nullhüpoteesi
+
+## Hüpoteeside testimine
+- Alternatiivhüpotees (H1) – reeglina sõnastatud nii, et väidab erinevuse esinemist / seose
+  kehtimist
+- Nullhüpotees (H0) – vastupidine sellele
+- Praegusel juhul:
+    - H1: Põhja- ja Lõuna-Eestis keskmine eluga rahulolu erineb ($m_p \neq m_l$)
+    - H0: Põhja- ja Lõuna-Eestis keskmine eluga rahulolu ei erine ($m_p = m_l$)
+- NB! Hüpoteesides ei pruugi olla öeldud, et need käivad populatsiooni kohta, aga meeles tuleb
+  pidada, et tegu on statistiliste hüpoteesidega
+
+## Esimest ja teist liiki viga
+- Hüpoteesipaari testitakse statistilise testi põhjal, valimiandmete alusel
+- Kaks võimalikku otsust: kas
+    - võtame vastu alternatiivhüpoteesi või
+    - jääme nullhüpoteesi juurde
+- Juhuvalim võib juhuslikkuse tõttu mõnevõrra populatsioonist erineda
+- Seetõttu eksisteerib võimalus, et teeme valimi alusel populatsiooni kohta eksliku otsuse
+- Esimest liiki viga – populatsioonis kehtib H0 (erinevust ei esine), aga jõuame valimiandmete
+  põhjal järeldusele, et kehtib H1 (keskmiste erinevus)
+- Kuigi juhuvalik võimaldab saada valimi, mis on populatsioonile võimalikult sarnane, võib ikkagi mõningatel juhtudel valim juhuse tõttu populatsioonist niivõrd palju erineda, et jõuame eksliku järelduseni
+    - Millisel juhul teeksime 1. liiki vea oma hüpoteesipaari puhul?
+- Teist liiki viga – populatsioonis kehtib H1 (erinevus esineb), aga jõuame valimiandmete põhjal
+  järeldusele, et kehtib H0 (erinevust ei esine)
+    - Millisel juhul teeksime 2. liiki vea oma hüpoteesipaari puhul?
+
+## Esimest ja teist liiki viga
+- ![](pics/ndl_06_tabl_02.jpg){width=95%}
+- Hüpoteeside testimise loogika: me ei tea, kas populatsioonis kehtib H0 või H1
+- Püüame jõuda tõele jälile, keskendudes mitte sellele, kas kehtib H1, vaid sellele, kas kehtib H0
+- Kui H0 ei kehti, saame järeldada, et kehtib H1, sest H0 ja H1 välistavad teineteise
+- Seejuures prioriteet on vältida esimest liiki viga (ka teist liiki viga oleks halb, aga esimest liiki vea vältimine olulisem)
+
+## Hakkame testima – kuidas?
+- Niisiis, hüpoteesipaari testitakse valimiandmete alusel, otsus tehakse populatsiooni kohta
+- Keskmised ja nende erinevuse arvutame valimi alusel, aga mille alusel teha otsus populatsiooni
+  kohta?
+- Selleks ongi statistiline test – võimaldab hinnata erinevuse / seose esinemist populatsioonis
+
+## Valime statistilise testi 
+- Aritmeetiliste keskmiste võrdlemiseks: t-test
+- Sõltumatute kogumite t-test: võrdleme arvulise tunnuse keskmisi kategoriseeriva tunnuse
+  lõikes
+$$t = \frac{m_1 - m_2}{s} \sqrt{\frac{n_1n_2}{n_1+n_2}}$$
+- $m_1, m_2$ – arvulise tunnuse keskmised kogumites
+- $s_1^2, s_2^2$ – arvulise tunnuse dispersioonid kogumites
+- $s$ – kahe kogumi ühise standardhälbe hinnang
+- $n_1, n_2$ – indiviidide arvud kogumites
+
+## Valime statistilise testi 
+- Aritmeetiliste keskmiste võrdlemiseks: t-test
+- Sõltumatute kogumite t-test: võrdleme arvulise tunnuse keskmisi kategoriseeriva tunnuse
+  lõikes
+$$t = \frac{m_1 - m_2}{s} \sqrt{\frac{n_1n_2}{n_1+n_2}}$$
+- Eeldused:
+    - Arvulise tunnuse jaotus gruppide lõikes normaaljaotuse lähedane
+    - Arvulise tunnuse hajuvus gruppide lõikes sarnane
+        - kui ei ole => Welchi t-test
+$$t = \frac{m_1 - m_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}$$
+
+## Arvutame teststatistiku
+
+- Kui kasutame *t*-testi, nimetatakse teststatistikut *t*-statistikuks (*t* väärtus valemis)
+$$t = \frac{m_1 - m_2}{s} \sqrt{\frac{n_1n_2}{n_1+n_2}} = \frac{0.25}{1.94}\cdot{18.09} = 2.33$$
+- $t = 2.33, df = 1384, p = 0.02
+- Olulisuse nivool 0,05 saame nullhüpoteesi kummutada ja vastu võtta alternatiivhüpoteesi, sest *t*-statistiku olulisuse tõenäosus on väiksem kehtestatud olulisuse nivoost 0,05
+- Olulisuse nivool 0,01 samas oleks järeldus vastupidine
+
+
+## Olulisuse nivoo ja usaldusnivoo
+- Mille poolest sarnanevad / erinevad?
+- Sama mündi kaks poolt
+- Hüpoteeside testimisel võtame aluseks olulisuse nivoo (0,5 või 0,1 või 0,01)
+- Usaldusvahemiku arvutamisel usaldusnivoo (95% või 90% või 99%)
+- Nii olulisuse nivoo 0,05 (ehk 5%) kui usaldusnivoo 95% puhul võetakse arvutuste aluseks
+väärtused 1,96 ja 1,96
+- Miks siis kaks erinevat mõistet?
+- Usaldusvahemiku puhul huvitab meid see, mis jääb nende väärtuste alusel arvutatavate piiride
+(usalduspiiride) *vahele*
+  - Vahemik, mis *katab* tegeliku väärtuse populatsioonis
+- Hüpoteeside testimisel huvitab meid see, kas teststatistik jääb nende väärtuste alusel
+arvutatavatest piiridest (kriitilistest väärtustest) *väljapoole*
+  - Kui jääb, saame kinnitada alternatiivhüpoteesi
+
+## Kriitilised väärtused sõltuvad vabadusastmete arvust
+:::: {style="display: flex;"}
+:::{}
+- Eelnevalt *t*-statistiku puhul välja toodud kriitilised piirid on täpsed eeldusel, et
+  indiviide on palju
+- Kui indiviide on vähe, ei lange *t*-jaotus täpselt kokku
+  normaaljaotusega
+- Täpsemalt: *t*-statistikud jaotuvad *t*-jaotuse kohaselt
+  vabadusastmete arvu $n - 1$ korral
+- ![joonis2](pics/ndl_06_joon_02.jpg){width=50%}
+- Vabadusastmete arv *(degrees of freedom)* – väljendab tõsiasja, et kui arvutame *t*-statistikut, siis meil on andmed $n$ indiviidi kohta, kuid ka teatud piirangud
+:::
+:::{}
+- Sisuline tähtsus on selles, et sõltuvalt
+  vabadusastmete arvust (indiviidide arvust) on *t*-jaotus mõnevõrra erineva kujuga =>
+    - $t$ kriitilised väärtused mõnevõrra erinevad
+- Nt olulisuse nivool 0,05
+    - kui $df = n -  2 = 80$, siis $t_{1-\frac{\alpha}{2}} = 1.99$ ja $t_{\frac{\alpha}{2}} = -1.99$
+    - kui $df = n -  2 = 30$, siis $t_{1-\frac{\alpha}{2}} = 2.04$ ja $t_{\frac{\alpha}{2}} = -2.04$
+    - kui $df = n -  2 = 8$, siis $t_{1-\frac{\alpha}{2}} = 2.31$ ja $t_{\frac{\alpha}{2}} = -2.31$
+:::
+::::
+
+## Tulemuste esitamine
+
+- Võib tunduda, et järelduste tegemiseks polegi vaja muud, kui vaadata olulisuse
+  tõenäosust ja raporteerida see
+- Päris nii see pole
+- Olulisuse tõenäosus (nagu ka usaldusvahemik) käib alati konkreetse näitaja kohta
+- Raporteerida tuleks ka see näitaja (teststatistik) ja selle tõlgendamiseks vajalikud näitajad
+- Seega, t-testi tulemuste põhjal saame olulisuse nivool 0,05 väita, et 2016. aastal
+  keskmine eluga rahulolu Põhja- ja Lõuna-Eestis erines ($t = 2.33, \ df = 1384, \ p = 0.02$)
+- Või: …erines (t-statistiku väärtus 2,33, vabadusastmete arv 1384, olulisuse tõenäosus
+  0,02)
+
+## Hüpoteeside testimine
+- Praegusel juhul:
+    - H1: Põhja- ja Lõuna-Eestis keskmine eluga rahulolu erineb ($m_p \neq m_l$)
+    - H0: Põhja- ja Lõuna-Eestis keskmine eluga rahulolu ei erine ($m_p = m_l$)
+- Tegu on kahepoolse hüpoteesipaariga – H1 seondub arvtelje kahe lõiguga
+- Hüpoteesipaar (täpsemalt, alternatiivhüpotees) võib olla ka ühepoolne
+- Sel juhul seondub H1 arvtelje ühe lõiguga, hüpoteesipaar võib olla 
+    - H1: $m_p < m_l$ ja H0: $m_p \geq m_l$  või
+    - H1: $m_p > m_l$ ja H0: $m_p \leq m_l$
+- Võimalik ühepoolne hüpoteesipaar lahti sõnastatult meie näite puhul
+    - H1: Põhja-Eestis on keskmine eluga rahulolu madalam, kui Lõuna-Eestis ($m_p < m_l$)
+    - H0: Põhja-Eesti keskmine eluga rahulolu ei ole madalam kui Lõuna-Eestis ($m_p \geq m_l$)
+    
+## Aga kui meil on ühepoolne hüpoteesipaar?
+- Eelnev arutelu ja näide põhinesid kahepoolse hüpoteesipaari testimisel
+    - H1: Põhja- ja Lõuna-Eestis keskmine eluga rahulolu erineb ($m_p \neq m_l$)
+    - H0: Põhja- ja Lõuna-Eestis keskmine eluga rahulolu ei erine ($m_p = m_l$)
+- Kui hüpoteesipaar on ühepoolne, tuleb
+    - teststatistiku kriitilised väärtused arvutada natuke teisel põhimõttel
+
+:::: {style="display: flex;"}
+:::{}
+- Kahepoolne hüpoteesipaar: kriitilised piirkonnad asuvad *t*-jaotuse mõlema „saba“ all
+- ![](pics/ndl_06_joon_03.jpg){width=75%}
+:::
+:::{}
+- Ühepoolne hüpoteesipaar: kriitiline piirkond asub *t*-jaotuse selle "saba" all, mida väidab H1
+- Nt kui hüpoteesipaar on H1: $m_p < m_l$ ja H0: $m_p \geq m_l$, siis kriitiline piirkond:
+- ![](pics/ndl_06_joon_04.jpg){width=75%}
+:::
+::::
+
+## Ühe kogumi *t*-test
+
+- Põhimõte sarnane sõltumatute kogumite (kahe kogumi) *t*-testile
+- Ühe valimi alusel mõõdetud kogumi keskmise asemel on mingi kindel väärtus
+- Testime, kas valimi alusel arvutatud keskmine sellest erineb
+- Nt kui tahame teada, kas valimi alusel saab väita, et Eesti elanike keskmine eluga
+  rahulolu on üle skaala keskpunkti
+   - H1: $m > 5$
+   - H0: $m \leq 5$
+
+## Paariskogumite *t*-test
+
+- Kasutatakse, kui vaatlused on omavahel seotud
+- St me ei võrdle kahe erineva grupi keskmisi, vaid samade indiviidide keskmisi, mis nt
+   - on mõõdetud erinevatel ajahetkedel
+       - nt samade indiviidide rahulolu eluga enne ja majanduskriisi ajal
+   - mõõdavad erinevaid nähtusi
+       - nt samade indiviidide rahulolu majanduse olukorraga ja valitsuse tegevusega
